@@ -17,7 +17,7 @@
     <tbody>
       <tr ng-repeat="shipment in shipments | orderBy:'partner'" style="cursor:pointer">
         <td>
-          <a ng-href="#/shipment/{{shipment._id}}">{{ shipment.partner }} {{ shipment.trade_value_start_exports }}</a>
+          <a ng-href="#/shipment/{{shipment._id}}">{{shipment.period}} {{ shipment.reporter }} -> {{ shipment.partner }} : {{ shipment.trade_value_total }} / {{ shipment.trade_value_start_exports }}</a>
         </td>
       </tr>
     </tbody>
