@@ -39,6 +39,13 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/shipments", function(req, res) {
+	db.collection(SHIPMENTS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get shipments.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
 });
 
 app.post("/shipments", function(req, res) {
@@ -64,10 +71,35 @@ app.post("/shipments", function(req, res) {
  */
 
 app.get("/shipments/:id", function(req, res) {
+	db.collection(SHIPMENTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get shipment");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+	
 });
 
 app.put("/shipments/:id", function(req, res) {
+	var updateDoc = req.body;
+  delete updateDoc._id;
+
+  db.collection(SHIPMENTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to update contact");
+    } else {
+      res.status(204).end();
+    }
+  });
 });
 
 app.delete("/shipments/:id", function(req, res) {
+	db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete shipment");
+    } else {
+      res.status(204).end();
+    }
+  });
 });
