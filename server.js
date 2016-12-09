@@ -39,7 +39,37 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/shipments", function(req, res) {
-	db.collection(SHIPMENTS_COLLECTION).find({}).limit( 500 ).toArray(function(err, docs) {
+	db.collection(SHIPMENTS_COLLECTION).find({}).limit( 50 ).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get shipments.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+app.get("/shipments/limit/:qty", function(req, res) {
+	db.collection(SHIPMENTS_COLLECTION).find({}).limit( req.params.qty ).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get shipments.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+app.get("/shipments/partner/:id", function(req, res) {
+	db.collection(SHIPMENTS_COLLECTION).find({partner_code: req.params.id}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get shipments.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+app.get("/shipments/commodity/:id", function(req, res) {
+	db.collection(SHIPMENTS_COLLECTION).find({commodity_code: req.params.id}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get shipments.");
     } else {
