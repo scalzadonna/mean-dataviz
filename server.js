@@ -39,7 +39,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/shipments", function(req, res) {
-	db.collection(SHIPMENTS_COLLECTION).find({}).toArray(function(err, docs) {
+	db.collection(SHIPMENTS_COLLECTION).find({}).limit( 500 ).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get shipments.");
     } else {
@@ -78,7 +78,7 @@ app.get("/shipments/:id", function(req, res) {
       res.status(200).json(doc);
     }
   });
-	
+
 });
 
 app.put("/shipments/:id", function(req, res) {
