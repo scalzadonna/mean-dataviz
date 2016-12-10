@@ -18,7 +18,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
     process.exit(1);
   }
   db = database;
-  console.log("Database connection ready");
+  console.log("Database connection up and running");
 
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
@@ -29,8 +29,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 // SHIPMENTS API ROUTER
 
 function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+  console.log("Error ocurred: " + reason);
+  res.status(code || 500).json({"error message": message});
 }
 
 /*  "/shipments"
@@ -58,8 +58,10 @@ app.get("/shipments/limit/:qty", function(req, res) {
   });
 });
 
-app.get("/shipments/partner/:id", function(req, res) {
-	db.collection(SHIPMENTS_COLLECTION).find({partner_code: req.params.id}).toArray(function(err, docs) {
+app.get("/shipments/partner/:code", function(req, res) {
+  console.log('queryng for:');
+  console.log(req.params.code);
+	db.collection(SHIPMENTS_COLLECTION).find({"partner_code": +req.params.code}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get shipments.");
     } else {
@@ -68,8 +70,8 @@ app.get("/shipments/partner/:id", function(req, res) {
   });
 });
 
-app.get("/shipments/commodity/:id", function(req, res) {
-	db.collection(SHIPMENTS_COLLECTION).find({commodity_code: req.params.id}).toArray(function(err, docs) {
+app.get("/shipments/commodity/:code", function(req, res) {
+	db.collection(SHIPMENTS_COLLECTION).find({'commodity_code': +req.params.code}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get shipments.");
     } else {
