@@ -1,0 +1,125 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,900);
+@import url(http://fonts.googleapis.com/css?family=Vollkorn:400,100,300,900);
+
+body {
+  background: linear-gradient(#D32B32, #E38F63);
+  font-family: 'Vollkorn', serif;
+
+  font-weight: 400;
+  color: #fff;
+}
+.content {
+
+  display: table;
+  height: 100vh;
+  width: 100%;
+}
+
+.container-fluid {
+  height: 100vh;
+  display: table-cell;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.embedded-image{
+  width: 100%;
+}
+.left-wrapper{
+  text-align: left;
+}
+.link{
+  padding-top: 3em;
+}
+.title{
+  padding: 1em 0em;
+}
+
+h2{
+  font-size: 4em;
+}
+h3 {
+  font-size: 3em;
+}
+h4{
+  font-size: 2.5em;
+}
+h5{
+  font-size: 2em;
+}
+
+p{
+  font-family: 'Roboto', sans-serif;
+	font-size: 1em;
+  line-height: 200%;
+  font-weight: 300;
+}
+
+p a {
+  background: rgba(255, 255, 255, 0);
+  border-bottom: 1px solid;
+  color: #fff;
+  line-height: 1.4;
+  padding: .25em;
+  text-decoration: none;
+}
+p a:hover {
+  background: white;
+  color: #E1332D;
+}
+
+.btn {
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  font-family: 'Roboto', sans-serif;
+  line-height: 35px;
+  margin: 0 auto 2em;
+  max-width: 160px;
+  position: relative;
+  text-decoration: none;
+  vertical-align: middle;
+  width: 100%;
+}
+@media (min-width: 400px) {
+  .btn {
+    display: inline-block;
+    margin-right: 2.5em;
+  }
+  .btn:nth-of-type(even) {
+    margin-right: 0;
+  }
+}
+
+.btn:hover {
+  text-decoration: none;
+  color:#fff;
+}
+
+.btn-hover {
+  background: none;
+
+}
+.btn-hover svg {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.btn-hover rect {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-dasharray: 90, 310;
+  stroke-dashoffset: 160;
+}
+
+.btn-hover:hover rect {
+  stroke-width: 3;
+  stroke-dasharray: 422, 0;
+  -webkit-transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+}

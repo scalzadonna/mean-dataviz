@@ -1,0 +1,20 @@
+//- login.jade
+extends ./layout
+
+block title
+  title Login
+
+block content
+  div.login-page
+    div.form
+      h3
+        span Star Exports, S.L
+      form.login-form(method='post')
+        - each message in flash
+          h4 #{message}
+        input(type='text', name='user',  placeholder='Usuario')
+        input(type='password', name='password', placeholder='Contraseña')
+        button Iniciar sesión
+
+      p Aun no tienes cuenta?
+        a(href="/register") Regístrate

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+
+  <!-- Libraries stylesheets-->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" />
+  <link rel="stylesheet" href="../lib/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="../lib/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="../lib/css/keen-dashboards.css" type="text/css">
+  <link rel="stylesheet" href="../lib/css/dc.css" type="text/css">
+  <link rel="stylesheet" href="../lib/css/custom-select.css" type="text/css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="./css/styles.css">
+
+</head>
+<body>
+
+  <div class="application container" ng-app="controlsApp">
+
+    <div class="navbar" role="navigation">
+
+      <div class="navbar-header">
+        <div class="navbar-brand" href="#/">
+          <p>
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+            Star Exports, S.L.
+          </p>
+        </div>
+      </div>
+
+      <div id="navbar" class="navbar-collapse collapse" ng-controller="ListSelectController">
+
+        <ul class="nav navbar-nav">
+          <li role="separator" class="divider"></li>
+          <li>
+            <div class="commodity-selector" ng-model="selectedCommodity" custom-select-options="commodityLabels"
+              custom-select="f.value for f in commodities | filter: $searchTerm"></div>
+          </li>
+          <li role="separator" class="divider"></li>
+          <li>
+            <div class="country-selector" ng-model="selectedCountry" custom-select-options="countryLabels"
+              custom-select="c.value for c in countries | filter: $searchTerm"></div>
+          </li>
+          <li role="separator" class="divider"></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span>Usuario</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Opciones</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </div>
+        </ul>
+
+      </div> <!--navbar contents-->
+
+    </div> <!--nav bar navigation-->
+
+    <div class="row">
+      <div class="col-md-12">
+        <span id="warning">
+        </span>
+      </div>
+    </div>
+
+    <div class="vizz container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <span id="loader">
+            <div id="spinner"></div>
+            <p>Loading data...</p>
+          </span>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Market Share Performance - <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All Filters</a>
+            </div>
+            <div class="chart-stage">
+              <div id="share-bar-chart"></div>
+            </div>
+          </div>
+        </div><!--col-->
+      </div><!--row-->
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Filter by Quarter - <a href='javascript:quarterRingChart.filterAll();dc.redrawAll();'
+                 class='reset'>Reset</a>
+            </div>
+            <div class="chart-stage">
+              <div id="quarter-ring-chart"></div>
+            </div>
+          </div>
+        </div><!--col-->
+
+        <div class="col-md-4">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Filter by Year - <a href='javascript:yearRingChart.filterAll();dc.redrawAll();'
+                 class='reset'>Reset</a>
+            </div>
+            <div class="chart-stage">
+              <div id="year-ring-chart"></div>
+            </div>
+          </div>
+        </div><!--col-->
+
+        <div class="col-md-4">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Some other filter
+            </div>
+            <div class="chart-stage">
+              <div id="month-bar-chart"></div>
+            </div>
+          </div>
+        </div><!--col-->
+
+      </div><!--row-->
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Timeline -
+              <a href='javascript:timeLineChart.filterAll();dc.redrawAll();'
+                 class='reset'>Reset</a>
+            </div>
+            <div class="chart-stage">
+              <div id="time-line-chart">
+
+                <div class="drag-hint">
+                  <img src="./img/drag.svg">
+                <p>Drag to filter</p>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div><!--col-->
+      </div><!--row-->
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              World Map
+            </div>
+            <div class="chart-stage">
+              <div id="map"></div>
+            </div>
+          </div>
+        </div><!--col-->
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Data
+            </div>
+            <div class="chart-stage">
+              <table class="table table-hover" id="data-table">
+                <thead> <tr class="header">
+                    <th>Month</th>
+                    <th>Partner</th>
+                    <th>Commodity</th>
+                    <th>Market Share</th>
+                </tr> </thead>
+              </table>
+            </div> <!--chart-stage-->
+          </div><!-- chart-wrapper-->
+        </div><!--col-->
+      </div><!--row-->
+
+
+    </div><!--container-->
+
+    <hr>
+
+    <div class="footer-bottom">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-12 right">
+              <p class="license">| Santi Scalzadonna para Elkano Data. Diciembre. 2016 |</p>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
+  </div> <!-- application container-->
+
+  <!--JS external libraries-->
+  <script src="../lib/js/jquery.min.js" type="text/javascript"></script>
+  <script src="../lib/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../lib/js/angular.min.js" type="text/javascript"></script>
+  <script src="../lib/js/custom-select.js" type="text/javascript"></script>
+  <script src="../lib/js/crossfilter.js" type="text/javascript"></script>
+  <script src="../lib/js/d3.min.js" type="text/javascript"></script>
+  <script src="../lib/js/dc.js" type="text/javascript"></script>
+  <script src="../lib/js/queue.js" type="text/javascript"></script>
+  <script src="../lib/js/keen.min.js" type="text/javascript"></script>
+  <script src="../lib/js/topojson.v1.min.js" type="text/javascript"></script>
+
+
+  <!-- App and Visualizations-->
+  <script src="./js/graphs.js" type="text/javascript"></script>
+  <script src="./js/controls.js" type="text/javascript"></script>
+
+</body>
+</html>

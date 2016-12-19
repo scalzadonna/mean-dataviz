@@ -50,7 +50,6 @@ angular.module("shipmentsApp", ['ngRoute'])
         }
         this.editShipment = function(shipment) {
             var url = "/shipments/" + shipment._id;
-            console.log(shipment._id);
             return $http.put(url, shipment).
                 then(function(response) {
                     return response;
