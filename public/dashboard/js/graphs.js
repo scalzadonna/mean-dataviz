@@ -332,7 +332,6 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d,i) {
-    console.log(d.data);
     return "<strong>" +  fullMonthDateFormat(d.data.key) + ": </strong>" +
       "<span style='color:#359980;'>" + d3.round(d.data.value.avg * 100) + "%</span> ";
   });
