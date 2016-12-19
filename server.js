@@ -7,13 +7,16 @@ var flash = require('req-flash');
 var ObjectID = mongodb.ObjectID;
 
 var db,
+    USERS_COLLECTION = "users",
     SHIPMENTS_COLLECTION = "shipments",
     COMMODITIES_COLLECTION = "commodities",
-    COUNTRIES_COLLECTION = "countries";
+    COUNTRIES_COLLECTION = "countries",
+    AVERAGES_COLLECTION = "averages";
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session(
   { secret: 'chiforimpula', resave: true, saveUninitialized: true }));
 app.use(checkAuth);
@@ -51,9 +54,23 @@ app.get('/register', function (req, res, next) {
 
 
 app.post('/register', function (req, res, next) {
-    console.log(req);
-    req.flash('error', 'Usuario creado, ingrese con sus credenciales');
-    res.redirect('/login');
+    var newUser = req.body;
+    newUser.createDate = new Date();
+
+    if (!(req.body.user && req.body.email && req.body.password )) {
+      req.flash('error', "Todos los datos son requeridos.");
+      res.redirect('/register');
+    }
+    else{
+      db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
+        if (err) {
+          handleError(res, err.message, "Failed to create new user.");
+        } else {
+          req.flash('error', 'Usuario creado, ingrese con sus credenciales');
+          res.redirect('/login');
+        }
+      });
+    }
 });
 
 app.get('/secure', function (req, res, next) {
@@ -61,15 +78,30 @@ app.get('/secure', function (req, res, next) {
 });
 
 app.post('/login', function (req, res, next) {
-
+  console.log(req.body);
 	// you might like to do a database look-up or something more scalable here
-	//if (req.body.username && req.body.username === 'user' && req.body.password && req.body.password === 'pass') {
-		req.session.authenticated = true;
-		res.redirect('/secure');
-	// } else {
-	// 	req.flash('error', 'Usuario o contrasena incorrecto');
-	// 	res.redirect('/login');
-	// }
+	if (req.body.username && req.body.password ) {
+
+    db.collection(USERS_COLLECTION)
+      .find({'user':req.body.username, 'password':req.body.password})
+      .toArray(function(err, docs) {
+        if (err) {
+          handleError(res, err.message, "Failed to login.");
+        } else {
+          if (docs[0]){
+            req.session.authenticated = true;
+        		res.redirect('/secure');
+          } else {
+        		req.flash('error', 'Usuario o contrasena incorrecto');
+        		res.redirect('/login');
+        	}
+        }
+      });
+
+	} else {
+		req.flash('error', 'Usuario o contrasena incorrecto');
+		res.redirect('/login');
+	}
 
 });
 
@@ -198,6 +230,40 @@ app.get("/shipments/commodities", function(req, res) {
 //       }
 //     });
 // });
+  app.get("/shipments/averages", function(req, res) {
+    db.collection(AVERAGES_COLLECTION)
+      .find({}, {_id:0,country:1,avgAmount:1})
+      .toArray(function(err, docs) {
+        if (err) {
+          handleError(res, err.message, "Failed to get averages.");
+        } else {
+          res.status(200).json(docs);
+        }
+      });
+  });
+  //Retrieve avg share for each country
+  app.get("/shipments/worldAverage/:code", function(req, res) {
+    var queryObject = {};
+    var commodityParam = +req.params.code;
+    if (commodityParam)
+      queryObject["commodity_code"] = commodityParam;
+  	db.collection(SHIPMENTS_COLLECTION)
+      .aggregate( [
+        { $match : queryObject },
+        { $group : {
+          _id : "$partner_code",
+          country : { $addToSet: "$partner_code" },
+          avgAmount: { $avg: { $divide: [ "$trade_value_start_exports", "$trade_value_total" ] } }
+        } }
+      ] )
+      .toArray(function(err, docs) {
+        if (err) {
+          handleError(res, err.message, "Failed to get averages.");
+        } else {
+          res.status(200).json(docs);
+        }
+      });
+  });
 
   app.get("/shipments/countries", function(req, res) {
   	db.collection(COUNTRIES_COLLECTION)

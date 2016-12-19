@@ -32,9 +32,7 @@ setTimeout(function() {
     var win = $(window);
 
     var allMods = $(".module");
-    console.log('jayy');
     allMods.each(function(i, el) {
-      console.log(el);
       var el = $(el);
       if (el.visible(true)) {
         el.addClass("already-visible");

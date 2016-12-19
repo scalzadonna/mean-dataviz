@@ -1,6 +1,8 @@
 var animateApp = angular.module('animateApp', ['ngRoute', 'ngAnimate']);
+$(document).load().scrollTop(0);
 
 animateApp.config(function($routeProvider) {
+
     $routeProvider
     	.when('/', {
         controller: 'indexController',

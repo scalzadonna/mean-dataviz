@@ -3,8 +3,8 @@
   transform: translateY(-150px);
   animation: come-in 2s ease forwards;
 }
-.come-in:nth-child(odd) {
-  animation-duration: 2s;
+.come-in:nth-child() {
+  animation-duration: 4s;
 }
 .already-visible {
   transform: translateY(0);

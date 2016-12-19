@@ -18,6 +18,7 @@ angular.module('controlsApp', ['AxelSoft'])
     d3.json("../shipments/countries/", function(error, data) {
       if (error) return console.warn(error);
       $scope.countries = data;
+      $scope.countries.unshift({'key':'0','value':'World'});
     });
     d3.json("../shipments/commodities/", function(error, data) {
       if (error) return console.warn(error);
@@ -25,14 +26,14 @@ angular.module('controlsApp', ['AxelSoft'])
     });
 
     $scope.$watch('selectedCountry', function(newVal) {
-      if (newVal && newVal.key){
+      if (newVal && newVal.key>-1){
         if ($scope.selectedCommodity && $scope.selectedCommodity.key)
           onCountryChange(newVal.key,$scope.selectedCommodity.key)
         else onCountryChange(newVal.key);
       }
     });
     $scope.$watch('selectedCommodity', function(newVal) {
-      if (newVal && newVal.key){
+      if (newVal && newVal.key>-1){
         //If there's a country selected filter by both
         if ($scope.selectedCountry && $scope.selectedCountry.key)
           onCommodityChange(newVal.key,$scope.selectedCountry.key)

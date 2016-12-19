@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../lib/css/keen-dashboards.css" type="text/css">
   <link rel="stylesheet" href="../lib/css/dc.css" type="text/css">
   <link rel="stylesheet" href="../lib/css/custom-select.css" type="text/css">
+  <link rel="stylesheet" href="../lib/css/tip-styles.css" type="text/css">
 
   <!-- App styles -->
   <link rel="stylesheet" href="./css/styles.css">
@@ -79,7 +80,7 @@
         <div class="col-md-12">
           <span id="loader">
             <div id="spinner"></div>
-            <p>Loading data...</p>
+            <p>Cargando datos...</p>
           </span>
         </div>
       </div>
@@ -90,7 +91,7 @@
         <div class="col-md-12">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Market Share Performance - <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All Filters</a>
+              Market Share - <a href="javascript:dc.filterAll(); dc.renderAll();">Quitar filtros</a>
             </div>
             <div class="chart-stage">
               <div id="share-bar-chart"></div>
@@ -104,7 +105,7 @@
         <div class="col-md-4">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Filter by Quarter - <a href='javascript:quarterRingChart.filterAll();dc.redrawAll();'
+              Filtrar por Cuatrimestre - <a href='javascript:quarterRingChart.filterAll();dc.redrawAll();'
                  class='reset'>Reset</a>
             </div>
             <div class="chart-stage">
@@ -116,7 +117,7 @@
         <div class="col-md-4">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Filter by Year - <a href='javascript:yearRingChart.filterAll();dc.redrawAll();'
+              Filtrar por año - <a href='javascript:yearRingChart.filterAll();dc.redrawAll();'
                  class='reset'>Reset</a>
             </div>
             <div class="chart-stage">
@@ -128,7 +129,7 @@
         <div class="col-md-4">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Some other filter
+              Global Market Share
             </div>
             <div class="chart-stage">
               <div id="month-bar-chart"></div>
@@ -142,7 +143,7 @@
         <div class="col-md-12">
           <div class="chart-wrapper">
             <div class="chart-title">
-              Timeline -
+              Linea temporal -
               <a href='javascript:timeLineChart.filterAll();dc.redrawAll();'
                  class='reset'>Reset</a>
             </div>
@@ -151,7 +152,7 @@
 
                 <div class="drag-hint">
                   <img src="./img/drag.svg">
-                <p>Drag to filter</p>
+                <p>Arrastrar</p>
               </div>
             </div>
             </div>
@@ -163,7 +164,7 @@
         <div class="col-md-12">
           <div class="chart-wrapper">
             <div class="chart-title">
-              World Map
+              Distribucion
             </div>
             <div class="chart-stage">
               <div id="map"></div>
@@ -217,6 +218,7 @@
   <script src="../lib/js/crossfilter.js" type="text/javascript"></script>
   <script src="../lib/js/d3.min.js" type="text/javascript"></script>
   <script src="../lib/js/dc.js" type="text/javascript"></script>
+  <script src="../lib/js/d3.tip.js"></script>
   <script src="../lib/js/queue.js" type="text/javascript"></script>
   <script src="../lib/js/keen.min.js" type="text/javascript"></script>
   <script src="../lib/js/topojson.v1.min.js" type="text/javascript"></script>

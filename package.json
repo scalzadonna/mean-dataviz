@@ -11,6 +11,8 @@
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "jade": "^1.11.0",
-    "mongodb": "^2.1.6"
+    "mongodb": "^2.1.6",
+    "express-session": "^1.14.2",
+    "req-flash": "^0.0.3"
   }
 }

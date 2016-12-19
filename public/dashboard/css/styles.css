@@ -1,31 +1,63 @@
-body{
+body {
   background-color: #ccc;
   font-family: "Open Sans";
 }
 
-div.tooltip {
-        color: #222;
-        background-color: #fff;
-        padding: .5em;
-        text-shadow: #f5f5f5 0 1px 0;
-        border-radius: 2px;
-        opacity: 0.9;
-        position: absolute;
-    }
 .btn {
   -webkit-border-radius: 0;
-     -moz-border-radius: 0;
-          border-radius: 0;
+ -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+#loader {
+  background-color: #fff;
+  height: 200px;
+  padding:50px;
+  position: absolute;
+  left: 45%;
+  top: 200px;
+  z-index: 1;
+  border-radius: 20px;
+}
+
+#warning{
+  background-color: #ccc;
+  height: 200px;
+  padding:50px;
+  position: absolute;
+  left: 40%;
+  top: 200px;
+  z-index: 1;
+  border-radius: 20px;
+  display: none;
+}
+
+#spinner {
+  width: 90px;
+  height: 90px;
+  border: 10px solid #CCC;
+  border-radius: 50%;
+  border-top: 10px solid #0099CC;
+  animation: spin infinite linear 1s;
 }
 
 #map {
-    width: 1080px;
-    height: 400px;
+  width: 1080px;
+  height: 400px;
 }
 #map path {
   stroke: white;
   stroke-width: 0.25px;
   fill: rgb(107, 174, 214);
+}
+#ocean-layer{
+  background: lightblue;
+}
+#month-bar-chart{
+  height: 150px;
+  width: 100%;
+  text-align: center;
+  font-size: 5em;
 }
 .application.container{
   background-color: #eee;
@@ -48,11 +80,20 @@ div.tooltip {
 	position: absolute;
 	left: 90%;
 	top: 10px;
-	/*z-index: -10;*/
 }
 .drag-hint img{
   width: 50px;
   height: 50px;
+}
+
+div.tooltip {
+  color: #222;
+  background-color: #fff;
+  padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px;
+  opacity: 0.9;
+  position: absolute;
 }
 
 rect.bar{
@@ -60,8 +101,8 @@ rect.bar{
 }
 
 .dc-chart g.row text {
-    fill: black;
-    font-size: 12px;
+  fill: black;
+  font-size: 12px;
 }
 .y-axis-label {
   fill: #666;
@@ -69,7 +110,6 @@ rect.bar{
 }
 .dc-chart .axis {
   fill: #666;
-  font: 12px "Open Sans";
 }
 .dc-chart g.axis text{
   font-size: 12px;
@@ -89,8 +129,7 @@ rect.bar{
   color: #eee;
 }
 
-.form-signin
-{
+.form-signin {
     background: #fff;
     max-width: 440px;
     padding: 35px;
@@ -102,36 +141,7 @@ rect.bar{
 .license{
   text-align: right;
 }
-#loader{
-  background-color: #fff;
-  height: 200px;
-  padding:50px;
-  position: absolute;
-  left: 45%;
-  top: 200px;
-  z-index: 1;
-  border-radius: 20px;
 
-}
-#warning{
-  background-color: #ccc;
-  height: 200px;
-  padding:50px;
-  position: absolute;
-  left: 40%;
-  top: 200px;
-  z-index: 1;
-  border-radius: 20px;
-  display: none;
-}
-#spinner {
-  width: 90px;
-  height: 90px;
-  border: 10px solid #CCC;
-  border-radius: 50%;
-  border-top: 10px solid #0099CC;
-  animation: spin infinite linear 1s;
-}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
